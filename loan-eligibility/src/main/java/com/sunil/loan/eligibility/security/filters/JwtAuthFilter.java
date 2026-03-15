@@ -1,6 +1,7 @@
-package com.sunil.user.security.filter;
+package com.sunil.loan.eligibility.security.filters;
 
-import com.sunil.user.security.utils.JwtUtils;
+import com.sunil.loan.eligibility.security.model.UserPrincipal;
+import com.sunil.loan.eligibility.security.utils.JwtUtils;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -46,11 +47,13 @@ public class JwtAuthFilter extends OncePerRequestFilter {
             String role = jwtUtils.extractRole(token);
             Long userId = jwtUtils.extractUserId(token);
 
+            UserPrincipal principal = new UserPrincipal(userId, username, role);
+
             // Create Spring Security authentication object
             // null for credentials - token already verified, no need for password
             UsernamePasswordAuthenticationToken authenticationToken =
                     new UsernamePasswordAuthenticationToken(
-                            userId,
+                            principal,
                             null,
                             List.of(new SimpleGrantedAuthority(role))
                     );

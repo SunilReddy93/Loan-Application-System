@@ -85,7 +85,7 @@ public class AuthService {
             throw new BadCredentials("Invalid Password", HttpStatus.UNAUTHORIZED);
         }
 
-        String token = jwtUtils.generateToken(user.getUsername(), user.getRole().name());
+        String token = jwtUtils.generateToken(user.getUsername(), user.getRole().name(), user.getId());
 
         return AuthResponse.builder()
                 .username(user.getUsername())

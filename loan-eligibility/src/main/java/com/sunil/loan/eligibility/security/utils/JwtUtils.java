@@ -1,4 +1,4 @@
-package com.sunil.user.security.utils;
+package com.sunil.loan.eligibility.security.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
