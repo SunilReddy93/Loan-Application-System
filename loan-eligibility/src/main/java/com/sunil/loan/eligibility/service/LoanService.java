@@ -92,7 +92,7 @@ public class LoanService {
         return mapToLoanApplicationResponse(loan);
     }
 
-    // Get all loans for the currently logged in user
+    // Get all loans for the currently logged-in user
     public List<LoanApplicationResponse> getMyLoans(Long userId) {
         return loanApplicationRepository.findByUserId(userId)
                 .stream()
@@ -105,7 +105,7 @@ public class LoanService {
     @Transactional
     public LoanApplicationResponse approveLoan(Long loanId, String adminUsername) {
 
-        LoanApplication loan = loanApplicationRepository.findById(loanId)
+        LoanApplication loan = loanApplicationRepository.findByIdWithLock(loanId)
                 .orElseThrow(() -> new CustomException(
                         "Loan application not found", HttpStatus.NOT_FOUND));
 
@@ -135,7 +135,7 @@ public class LoanService {
     @Transactional
     public LoanApplicationResponse rejectLoan(Long loanId, String reason, String adminUsername) {
 
-        LoanApplication loan = loanApplicationRepository.findById(loanId)
+        LoanApplication loan = loanApplicationRepository.findByIdWithLock(loanId)
                 .orElseThrow(() -> new CustomException(
                         "Loan application not found", HttpStatus.NOT_FOUND));
 
@@ -163,7 +163,7 @@ public class LoanService {
     @Transactional
     public LoanApplicationResponse disburseLoan(Long loanId, String adminUsername) {
 
-        LoanApplication loan = loanApplicationRepository.findById(loanId)
+        LoanApplication loan = loanApplicationRepository.findByIdWithLock(loanId)
                 .orElseThrow(() -> new CustomException(
                         "Loan application not found", HttpStatus.NOT_FOUND));
 
@@ -189,7 +189,7 @@ public class LoanService {
     @Transactional
     public LoanApplicationResponse closeLoan(Long loanId, String adminUsername) {
 
-        LoanApplication loan = loanApplicationRepository.findById(loanId)
+        LoanApplication loan = loanApplicationRepository.findByIdWithLock(loanId)
                 .orElseThrow(() -> new CustomException(
                         "Loan application not found", HttpStatus.NOT_FOUND));
 

@@ -24,7 +24,7 @@ public class UserManagementClient {
 
     public UserResponse getUserById(Long userId) {
         return circuitBreakerFactory
-                .create("user-management-cd")
+                .create("user-management-cb")
                 .run(
                         () -> userManagementWebClient.get()
                                 .uri("/api/internal/users/{id}", userId)

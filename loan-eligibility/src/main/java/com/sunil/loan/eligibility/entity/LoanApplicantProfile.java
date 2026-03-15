@@ -11,7 +11,12 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "loan_applicant_profile")
+@Table(
+        name = "loan_applicant_profile",
+        indexes = {
+                @Index(name = "idx_profile_user_id", columnList = "user_id")
+        }
+)
 public class LoanApplicantProfile {
 
     @Id

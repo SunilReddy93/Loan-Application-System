@@ -12,7 +12,14 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "loan_application")
+@Table(
+        name = "loan_application",
+        indexes = {
+                @Index(name = "idx_loan_user_id", columnList = "user_id"),
+                @Index(name = "idx_loan_user_id_status", columnList = "user_id, status"),
+                @Index(name = "idx_loan_idempotency_key", columnList = "idempotency_key")
+        }
+)
 public class LoanApplication {
 
     @Id
