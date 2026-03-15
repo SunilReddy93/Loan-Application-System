@@ -212,14 +212,14 @@ public class LoanService {
     }
 
     // Get full status history for a loan - user can only view their own loan history
-    public List<LoanStatusHistoryResponse> getLoanHistory(Long loanId, Long userId) {
+    public List<LoanStatusHistoryResponse> getLoanHistory(Long loanId, Long userId, String role) {
 
         LoanApplication loan = loanApplicationRepository.findById(loanId)
                 .orElseThrow(() -> new CustomException(
                         "Loan application not found", HttpStatus.NOT_FOUND));
 
         // Ensure user can only access their own loan history
-        if (!loan.getUserId().equals(userId)) {
+        if (!role.equals("ROLE_ADMIN") && !loan.getUserId().equals(userId)) {
             throw new CustomException(
                     "You are not authorized to view this loan history", HttpStatus.FORBIDDEN);
         }

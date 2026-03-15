@@ -85,7 +85,7 @@ public class LoanController {
     public ResponseEntity<List<LoanStatusHistoryResponse>> getLoanHistory(
             @PathVariable Long id,
             @AuthenticationPrincipal UserPrincipal principal) {
-        List<LoanStatusHistoryResponse> response = loanService.getLoanHistory(id, principal.getUserId());
+        List<LoanStatusHistoryResponse> response = loanService.getLoanHistory(id, principal.getUserId(), principal.getRole());
         return ResponseEntity.ok(response);
     }
 }
