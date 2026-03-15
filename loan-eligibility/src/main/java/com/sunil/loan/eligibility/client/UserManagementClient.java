@@ -6,6 +6,7 @@ import com.sunil.loan.eligibility.exception.ServiceNotAvailable;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cloud.client.circuitbreaker.CircuitBreakerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -22,6 +23,7 @@ public class UserManagementClient {
     @Value(("${internal.api.key}"))
     private String internalAPIKey;
 
+    @Cacheable(value = "users", key = "#userId")
     public UserResponse getUserById(Long userId) {
         return circuitBreakerFactory
                 .create("user-management-cb")
