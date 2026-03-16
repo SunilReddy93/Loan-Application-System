@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: loan-eligibility
+  namespace: loan-system
+spec:
+  selector:
+    app: loan-eligibility
+  ports:
+    - port: 8082
+      targetPort: 8082
